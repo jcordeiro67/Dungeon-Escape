@@ -28,6 +28,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1241418141607892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4649102345583072}
+  m_Layer: 10
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1898406783449840
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,6 +53,7 @@ GameObject:
   - component: {fileID: 4607105358878734}
   - component: {fileID: 212379686800623932}
   - component: {fileID: 95200082308601198}
+  - component: {fileID: 114732550221712296}
   m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
@@ -56,6 +72,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4607105358878734}
+  - {fileID: 4649102345583072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,6 +88,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4300426664615364}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4649102345583072
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241418141607892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.37, y: 0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4300426664615364}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &61603935204879492
 BoxCollider2D:
@@ -115,6 +145,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114732550221712296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1898406783449840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d3cd3fb75e9d4be786cf96c33137e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114863786262220240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,13 +167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1326dda680c48918c6b9d7d6b7d53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 1
   speed: 0.5
   gems: 2
   attackRange: 5
   pointA: {fileID: 0}
   pointB: {fileID: 0}
   startPoint: {fileID: 0}
+  acidEffectPrefab: {fileID: 1896567418157706, guid: 5afea45960e784f4db07b1d0529b775d,
+    type: 2}
+  spawnPoint: {fileID: 4649102345583072}
 --- !u!212 &212379686800623932
 SpriteRenderer:
   m_ObjectHideFlags: 1

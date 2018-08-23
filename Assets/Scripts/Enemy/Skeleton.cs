@@ -15,6 +15,10 @@ public class Skeleton : Enemy, IDamageable {
 
 	}
 
+	public override void Move(){
+		base.Move();
+	}
+
 	public void Damage(){
 		
 		Health--;
@@ -25,10 +29,6 @@ public class Skeleton : Enemy, IDamageable {
 		if (Health < 1) {
 			Destroy(this.gameObject);
 		}
-	}
-
-	public override void Move(){
-		base.Move();
 	}
 
 	public void Death(){
