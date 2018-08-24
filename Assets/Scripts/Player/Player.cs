@@ -6,7 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(PlayerAnimation))]
 
-public class Player : MonoBehaviour, IDamageable {
+public class Player : MonoBehaviour, IDamageable, ICollectable{
+
+	[SerializeField]
+	private int m_diamonds = 0;
 
 	[SerializeField]
 	private int m_health = 10;
@@ -31,12 +34,15 @@ public class Player : MonoBehaviour, IDamageable {
 	private bool m_isGrounded = false;
 
 	public int Health { get; set;}
+	public int Diamonds { get; set;}
 
 	// Use this for initialization
 	void Start () {
 
 		Health = m_health;
+		Diamonds = m_diamonds;
 		Debug.Log("Player Health = " + Health.ToString());
+		Debug.Log("Player Diamonds = " + Diamonds.ToString());
 		// assign handle of rigidbody
 		m_rBody2D = GetComponent<Rigidbody2D>();
 		m_anim = GetComponentInChildren<Animator>();
@@ -150,5 +156,11 @@ public class Player : MonoBehaviour, IDamageable {
 
 		}
 
+	}
+
+	public void AddDiamonds(int value){
+
+		Diamonds += value;
+		Debug.Log("Player Diamonds = " + Diamonds.ToString());
 	}
 }

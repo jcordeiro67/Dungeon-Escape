@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_health: 1
   m_speed: 2
-  m_gems: 3
+  m_gems: 1
   m_attackRange: 5
   m_pointA: {fileID: 0}
   m_pointB: {fileID: 0}

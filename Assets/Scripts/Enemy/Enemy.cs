@@ -61,7 +61,7 @@ public abstract class Enemy : MonoBehaviour {
 		if (m_anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && m_anim.GetBool("InCombat") == false) {
 			return;
 		}
-
+		// Stop moving if enemy is dead
 		if (isDead == false) {
 			Move();
 		}
