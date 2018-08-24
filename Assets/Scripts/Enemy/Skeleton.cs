@@ -11,7 +11,7 @@ public class Skeleton : Enemy, IDamageable {
 	{
 		base.Init();
 
-		Health = base.health;
+		Health = base.m_health;
 
 	}
 
@@ -27,13 +27,11 @@ public class Skeleton : Enemy, IDamageable {
 		m_anim.SetBool("InCombat", true);
 
 		if (Health < 1) {
-			Destroy(this.gameObject);
+			m_anim.SetTrigger("Death");
+			isDead = true;
+			m_collider.enabled = false;
+			//Destroy(this.gameObject);
 		}
 	}
 
-	public void Death(){
-
-		m_anim.SetTrigger("Death");
-		Destroy(this.gameObject);
-	}
 }

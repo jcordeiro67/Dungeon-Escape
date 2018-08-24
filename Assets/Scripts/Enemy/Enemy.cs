@@ -5,23 +5,25 @@ using UnityEngine.EventSystems;
 
 public abstract class Enemy : MonoBehaviour {
     [SerializeField]
-    protected int health;
+    protected int m_health;
     [SerializeField]
-	protected float speed;
+	protected float m_speed;
     [SerializeField]
-    protected int gems;
+    protected int m_gems;
 	[SerializeField]
-	protected float attackRange = 2f;
+	protected float m_attackRange = 2f;
 	[SerializeField]
-	protected Transform pointA, pointB;
+	protected Transform m_pointA, m_pointB;
 	[SerializeField]
-	protected Transform startPoint;
+	protected Transform m_startPoint;
 
 	protected Vector3 m_currentTarget;
 	protected SpriteRenderer m_spriteRenderer;
 	protected Animator m_anim;
+	protected Collider2D m_collider;
 
 	protected bool isHit = false;
+	protected bool isDead = false;
 
 	//variable to store player
 	protected GameObject m_player;
@@ -29,8 +31,8 @@ public abstract class Enemy : MonoBehaviour {
 	void Start(){
 		Init();
 
-		if (startPoint != null && pointA != null) {
-			m_currentTarget = startPoint.position;
+		if (m_startPoint != null && m_pointA != null) {
+			m_currentTarget = m_startPoint.position;
 		} else {
 			m_currentTarget = transform.position;
 		}
@@ -51,6 +53,7 @@ public abstract class Enemy : MonoBehaviour {
 		m_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		m_anim = GetComponentInChildren<Animator>();
 		m_player = FindObjectOfType<Player>().gameObject;
+		m_collider = GetComponent<Collider2D>();
 	}
 
 	public virtual void Update(){
@@ -59,13 +62,15 @@ public abstract class Enemy : MonoBehaviour {
 			return;
 		}
 
-		Move();
+		if (isDead == false) {
+			Move();
+		}
 	}
 
 	public virtual void Move(){
 
 		// Set enemy sprite in direction to move
-		if (pointA != null && m_currentTarget.x == pointA.position.x) {
+		if (m_pointA != null && m_currentTarget.x == m_pointA.position.x) {
 			m_spriteRenderer.flipX = true;
 
 		} else {
@@ -73,15 +78,15 @@ public abstract class Enemy : MonoBehaviour {
 		}
 
 		// move the player between to waypoints
-		if (pointB != null && transform.position == pointA.position) {
+		if (m_pointB != null && transform.position == m_pointA.position) {
 
-			m_currentTarget = pointB.position;
+			m_currentTarget = m_pointB.position;
 			m_anim.SetTrigger("Idle");
 
 		}
-		else if (pointA != null && transform.position == pointB.position) {
+		else if (m_pointA != null && transform.position == m_pointB.position) {
 
-			m_currentTarget = pointA.position;
+			m_currentTarget = m_pointA.position;
 			m_anim.SetTrigger("Idle");
 
 		}
@@ -89,25 +94,25 @@ public abstract class Enemy : MonoBehaviour {
 		// freezes enemy movement when hit by player
 		// by only moving enemy when player is out of reach for attack
 		if (isHit == false && m_anim.GetBool("InCombat") == false) {
-			transform.position = Vector3.MoveTowards(transform.position, m_currentTarget, speed * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, m_currentTarget, m_speed * Time.deltaTime);
 		}
 
 		// check for distance between player and enemy
 		// if distance > then float unfreeze enemy movement
 		float _distance = Vector2.Distance(m_player.transform.localPosition, transform.localPosition);
 
-		if (_distance >= attackRange) {
+		if (_distance >= m_attackRange) {
 			isHit = false;
 			m_anim.SetBool("InCombat", false);
 		}
 
 		//Flip Enemy sprite when in combat with player
-		Vector2 _direction = m_player.transform.localPosition - transform.localPosition;
+		Vector2 m_direction = m_player.transform.localPosition - transform.localPosition;
 
-		if (m_anim.GetBool("InCombat") == true && _direction.x < 0f) {
+		if (m_anim.GetBool("InCombat") == true && m_direction.x < 0f) {
 			m_spriteRenderer.flipX = true;
 
-		} else if (m_anim.GetBool("InCombat") == true && _direction.x > 0f) {
+		} else if (m_anim.GetBool("InCombat") == true && m_direction.x > 0f) {
 			m_spriteRenderer.flipX = false;
 		}
 	}

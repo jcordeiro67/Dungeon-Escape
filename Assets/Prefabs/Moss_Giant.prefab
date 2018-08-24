@@ -204,14 +204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70cd8c4f16494bbd9510194fac61374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  speed: 1
-  gems: 2
-  attackRange: 2
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
-  startPoint: {fileID: 0}
-  height: 5
+  m_health: 3
+  m_speed: 1.5
+  m_gems: 2
+  m_attackRange: 2
+  m_pointA: {fileID: 0}
+  m_pointB: {fileID: 0}
+  m_startPoint: {fileID: 0}
+  m_height: 5
 --- !u!114 &114955716374965634
 MonoBehaviour:
   m_ObjectHideFlags: 1

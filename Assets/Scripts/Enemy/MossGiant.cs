@@ -5,13 +5,14 @@ using UnityEngine;
 public class MossGiant : Enemy, IDamageable {
 
 	public int Health{ get; set;}
-	public int height = 5;
+	public int m_height = 5;
 
 	// Used for Initilization
 	public override void Init()
 	{
 		base.Init();
-		Health = base.health;
+		//Debug.Log("MossGiant Collider: " + m_collider.GetType().ToString()); 
+		Health = base.m_health;
 	}
 
 	public override void Move(){
@@ -26,7 +27,10 @@ public class MossGiant : Enemy, IDamageable {
 		m_anim.SetBool("InCombat", true);
 
 		if (Health < 1) {
-			Destroy(this.gameObject);
+			m_anim.SetTrigger("Death");
+			isDead = true;
+			m_collider.enabled = false;
+			//Destroy(this.gameObject);
 		}
 	}
 }

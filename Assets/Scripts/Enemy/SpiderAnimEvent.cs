@@ -5,11 +5,11 @@ using UnityEngine;
 public class SpiderAnimEvent : MonoBehaviour {
 	
 	// Handle to Spider Script
-	private Spider _spider;
+	private Spider m_spider;
 
 	void Start(){
 		// Handle assignment to Spider Script
-		_spider = GetComponentInParent < Spider>();
+		m_spider = GetComponentInParent < Spider>();
 	}
 
 	public void fire(){
@@ -17,6 +17,6 @@ public class SpiderAnimEvent : MonoBehaviour {
 		//Tell Spider to fire
 		Debug.Log("Spider should fire");
 		// use handle to call Attack on spider
-		_spider.Attack();
+		m_spider.Attack();
 	}
 }

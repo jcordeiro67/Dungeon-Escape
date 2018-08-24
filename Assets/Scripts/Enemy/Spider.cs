@@ -7,15 +7,20 @@ public class Spider : Enemy, IDamageable{
 	public int Health{ get; set;}
 
 	[SerializeField]
-	private GameObject acidEffectPrefab;
+	private GameObject m_acidEffectPrefab;
 	[SerializeField]
-	private Transform spawnPoint;
+	private Transform m_spawnPoint;
 
 	// Used for Initilization
 	public override void Init()
 	{
 		base.Init();
-		Health = base.health;
+		Health = base.m_health;
+	}
+
+	public override void Update(){
+		//Override the enemy update function
+
 	}
 
 	public override void Move(){
@@ -25,16 +30,20 @@ public class Spider : Enemy, IDamageable{
 	public void Damage(){
 
 		Health--;
+		m_anim.SetBool("InCombat", true);
 
 		if (Health < 1) {
-			Destroy(this.gameObject);
+			m_anim.SetTrigger("Death");
+			isDead = true;
+			m_collider.enabled = false;
+			//Destroy(this.gameObject);
 		}
 	}
 
 	public void Attack(){
 
 		// Instantiate AcidEffect attack
-		Instantiate(acidEffectPrefab, spawnPoint.position, Quaternion.identity);
+		Instantiate(m_acidEffectPrefab, m_spawnPoint.position, Quaternion.identity);
 	}
 
 }

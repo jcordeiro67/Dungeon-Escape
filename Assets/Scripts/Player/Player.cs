@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable {
 
+	[SerializeField]
+	private int m_health = 10;
 	// variable for move speed
 	[SerializeField]
 	private float m_speed = 5f;
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour, IDamageable {
 
 	// get handle for rigidbody
 	private Rigidbody2D m_rBody2D;
+	private Animator m_anim;
 	private PlayerAnimation m_playerAnim;
 	private SpriteRenderer m_playerSprite;
 	private SpriteRenderer m_swordArcSprite;
@@ -31,9 +34,12 @@ public class Player : MonoBehaviour, IDamageable {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		Health = m_health;
+		Debug.Log("Player Health = " + Health.ToString());
 		// assign handle of rigidbody
 		m_rBody2D = GetComponent<Rigidbody2D>();
+		m_anim = GetComponentInChildren<Animator>();
 		m_playerAnim = GetComponent<PlayerAnimation>();
 		m_playerSprite = GetComponentInChildren<SpriteRenderer>();
 		m_swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -134,5 +140,15 @@ public class Player : MonoBehaviour, IDamageable {
 	public void Damage()
 	{
 		Debug.Log("Player Hit: Damage() called");
+
+		Health--;
+
+		Debug.Log("Player Health = " + Health.ToString());
+
+		if(Health < 1){
+			m_anim.SetTrigger("Death");
+
+		}
+
 	}
 }

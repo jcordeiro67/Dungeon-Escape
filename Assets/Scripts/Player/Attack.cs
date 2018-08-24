@@ -6,19 +6,18 @@ public class Attack : MonoBehaviour {
 
 	public float hitDelay = 0.5f;
 	// variable to determine if the damage function can be called
-	private bool _canDamage = true;
+	private bool m_canDamage = true;
 
 
 	void OnTriggerEnter2D(Collider2D other){
 		
-		Debug.Log("hit: " + other.name);
 		IDamageable hit = other.GetComponent < IDamageable>();
 
 		if (hit != null) {
 			// if can attack
-			if (_canDamage == true) {
+			if (m_canDamage == true) {
 				hit.Damage();
-				_canDamage = false;
+				m_canDamage = false;
 				StartCoroutine(damagePause());
 			}
 		}
@@ -28,6 +27,6 @@ public class Attack : MonoBehaviour {
 	IEnumerator damagePause(){
 		
 		yield return new WaitForSeconds(hitDelay);
-		_canDamage = true;
+		m_canDamage = true;
 	}
 }
