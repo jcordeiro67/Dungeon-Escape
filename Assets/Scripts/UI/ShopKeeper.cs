@@ -28,6 +28,8 @@ public class ShopKeeper : MonoBehaviour {
 			m_gemCount = m_player.Diamonds;
 			m_UICanvas.SetActive(true);
 			UIManager.Instance.UI_UpDateGems(m_gemCount);
+			//Disable player's attack ability
+			m_player.canAttack = false;
 		}
 	}
 
@@ -37,24 +39,26 @@ public class ShopKeeper : MonoBehaviour {
 
 		if (m_player != null) {
 			m_UICanvas.SetActive(false);
+			//Enable player's attack ability
+			m_player.canAttack = true;
 		}
 	}
 
 	public void SelectItem(int item){
 		//Switch between selected item
 		switch (item) {
+			
 			case 0: //Flame Sword
-				
 				currentSellection = 0;
 				UIManager.Instance.UI_UpdateSelectedItem(-36.9f);
 				break;
+
 			case 1: //Boots
-				
 				currentSellection = 1;
 				UIManager.Instance.UI_UpdateSelectedItem(-138.9f);
 				break;
+
 			case 2: //Key
-				
 				currentSellection = 2;
 				UIManager.Instance.UI_UpdateSelectedItem(-243.3f);
 				break;
@@ -74,20 +78,45 @@ public class ShopKeeper : MonoBehaviour {
 			//update UI Gem Count
 			UIManager.Instance.UI_UpDateGems(m_gemCount);
 
+			//Switch items on currentSellection
+			//Award item to players inventory
+			switch (currentSellection) {
+				
+				case 0: //Flame Sword
+					GameManager.Instance.FlameSword = true;
+					break;
+
+				case 1: //Boots Of Flight
+					GameManager.Instance.BootsOfFlight = true;
+					break;
+
+				case 2: //Key To Castle
+					GameManager.Instance.KeyToCastle = true;
+					break;
+			}
+
+			Debug.Log("Remaining gems: " + m_player.Diamonds);
+			//Close Shopkeeper UI
+			m_UICanvas.SetActive(false);
+			//Enable player's attack ability
+			m_player.canAttack = true;
+
 		} 
 		else {
-			Debug.Log("Not enough gems to buy " + itemName[currentSellection]);
-			//TODO: Create a Out of Cash UI POPUP
+			//Display error panel with error message
 			UIManager.Instance.UI_ToggleErrorPanel();
-			UIManager.Instance.errorText.text = "Not Enough Gems to Buy " + itemName[currentSellection].ToString();
+			UIManager.Instance.errorText.text = "Not Enough Gems to Buy \n" + itemName[currentSellection].ToString();
 			return;
 		}
 
 	}
 
 	public void ClosePanel(){
-
+		//Close error panel and Shopkeeper UI
 		UIManager.Instance.UI_ToggleErrorPanel();
+		m_UICanvas.SetActive(false);
+		//Enable player's attack ability
+		m_player.canAttack = true;
 	}
 
 }

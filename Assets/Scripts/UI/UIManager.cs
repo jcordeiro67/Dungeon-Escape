@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		
+		//if selectionImage enable on activation of panel turn selectionImage off
 		if (selectionImage.IsActive() == true) {
 			UI_ToggleSelectionImage();
 		}
@@ -55,10 +55,12 @@ public class UIManager : MonoBehaviour {
 		selectionImage.enabled = !selectionImage.IsActive();
 	}
 
+	//Toggle the buy botton interaction attribute
 	public void UI_ToggleBuyButtonInteraction(){
 		buyButton.interactable = !buyButton.interactable;
 	}
 
+	//Toggle the errorPanel
 	public void UI_ToggleErrorPanel(){
 		errorCanvas.SetActive(!errorCanvas.activeSelf);
 	}

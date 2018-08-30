@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 
 	public int Health { get; set;}
 	public int Diamonds { get; set;}
+	public bool canAttack = true;
 
 	// Use this for initialization
 	void Start () {
@@ -90,6 +91,10 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 
 	void Attack()
 	{
+		if (!canAttack) {
+			return;
+		}
+
 		if (Input.GetMouseButtonDown(0) && IsGrounded()) {
 			m_playerAnim.Attack();
 		}
