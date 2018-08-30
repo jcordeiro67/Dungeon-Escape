@@ -148,12 +148,11 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		Debug.Log("Player Hit: Damage() called");
 
 		Health--;
-
+		//TODO: Add hit Animation
 		Debug.Log("Player Health = " + Health.ToString());
 
 		if(Health < 1){
 			m_anim.SetTrigger("Death");
-
 		}
 
 	}
@@ -161,6 +160,6 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 	public void AddDiamonds(int value){
 
 		Diamonds += value;
-		Debug.Log("Player Diamonds = " + Diamonds.ToString());
+		//Debug.Log("Player Diamonds = " + Diamonds.ToString());
 	}
 }

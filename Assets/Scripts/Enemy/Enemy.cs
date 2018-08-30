@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public abstract class Enemy : MonoBehaviour {
-    [SerializeField]
+	
+	public GameObject diamondPrefab;
+
+	[SerializeField]
     protected int m_health;
     [SerializeField]
 	protected float m_speed;

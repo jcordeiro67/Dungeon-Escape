@@ -11,7 +11,6 @@ public class MossGiant : Enemy, IDamageable {
 	public override void Init()
 	{
 		base.Init();
-		//Debug.Log("MossGiant Collider: " + m_collider.GetType().ToString()); 
 		Health = base.m_health;
 	}
 
@@ -20,6 +19,10 @@ public class MossGiant : Enemy, IDamageable {
 	}
 
 	public void Damage(){
+		
+		if (isDead) {
+			return;
+		}
 
 		Health--;
 		m_anim.SetTrigger("Hit");
@@ -27,9 +30,15 @@ public class MossGiant : Enemy, IDamageable {
 		m_anim.SetBool("InCombat", true);
 
 		if (Health < 1) {
-			m_anim.SetTrigger("Death");
 			isDead = true;
+			m_anim.SetTrigger("Death");
 			m_collider.enabled = false;
+			//Spawn a Diamond as a GameObject
+			GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity) as GameObject;
+			//Get access to Diamond Component and set m_gems variable to the gems amount for this enemy
+			if (diamond.GetComponent<Diamond>() != null) {
+				diamond.GetComponent<Diamond>().m_gems = m_gems;
+			}
 			//Destroy(this.gameObject);
 		}
 	}
