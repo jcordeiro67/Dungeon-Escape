@@ -21,11 +21,6 @@ public class Diamond : MonoBehaviour{
 		//Get the AudioSource Component
 		m_audioSource = GetComponent<AudioSource>();
 
-		//Play Spawn Sound
-		if(m_spawnSound != null){
-			// play sound
-			m_audioSource.PlayOneShot(m_spawnSound, m_volume);
-		}
 	}
 
 	void Start(){
@@ -58,5 +53,11 @@ public class Diamond : MonoBehaviour{
 		}
 	}
 
-
+	public void PlaySpawnSound(){
+		//Play Spawn Sound
+		if(m_spawnSound != null){
+			// play sound
+			m_audioSource.PlayOneShot(m_spawnSound, m_volume);
+		}
+	}
 }

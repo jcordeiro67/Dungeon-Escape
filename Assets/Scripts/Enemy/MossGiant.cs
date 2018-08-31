@@ -38,8 +38,17 @@ public class MossGiant : Enemy, IDamageable {
 			//Get access to Diamond Component and set m_gems variable to the gems amount for this enemy
 			if (diamond.GetComponent<Diamond>() != null) {
 				diamond.GetComponent<Diamond>().m_gems = m_gems;
+				diamond.GetComponent<Diamond>().PlaySpawnSound();
 			}
+
+			//Call Coroutine from Enemy Class to pause destroy
+			StartCoroutine(EnemyDeathPause(3f));
 			//Destroy(this.gameObject);
 		}
+	}
+
+	IEnumerator EnemyDeathPause(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		Destroy(this.gameObject);
 	}
 }

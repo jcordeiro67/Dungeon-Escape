@@ -27,7 +27,7 @@ public class ShopKeeper : MonoBehaviour {
 		if (m_player != null) {
 			m_gemCount = m_player.Diamonds;
 			m_UICanvas.SetActive(true);
-			UIManager.Instance.UI_UpDateGems(m_gemCount);
+			UIManager.Instance.UI_UpDateGems(UIManager.Instance.playerGemCountText, m_gemCount);
 			//Disable player's attack ability
 			m_player.canAttack = false;
 		}
@@ -76,8 +76,9 @@ public class ShopKeeper : MonoBehaviour {
 			//reset gemCount variable
 			m_gemCount = m_player.Diamonds;
 			//update UI Gem Count
-			UIManager.Instance.UI_UpDateGems(m_gemCount);
-
+			UIManager.Instance.UI_UpDateGems(UIManager.Instance.playerGemCountText, m_gemCount);
+			//update HUD Gem Display
+			UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, m_gemCount);
 			//Switch items on currentSellection
 			//Award item to players inventory
 			switch (currentSellection) {

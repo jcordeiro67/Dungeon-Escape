@@ -41,8 +41,14 @@ public class Skeleton : Enemy, IDamageable {
 			if (diamond.GetComponent<Diamond>() != null) {
 				diamond.GetComponent<Diamond>().m_gems = m_gems;
 			}
-			//Destroy(this.gameObject);
+
+			StartCoroutine(EnemyDeathPause(3f));
 		}
+	}
+
+	IEnumerator EnemyDeathPause(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		Destroy(this.gameObject);
 	}
 
 }

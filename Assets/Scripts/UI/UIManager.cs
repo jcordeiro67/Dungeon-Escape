@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
 
 public class UIManager : MonoBehaviour {
 	//Singleton Class UIManager
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour {
 	public Image selectionImage;
 	public GameObject errorCanvas;
 	public Text	errorText;
+	public Text hudGemCountText;
 
 	void Awake(){
 		_instance = this;
@@ -36,8 +38,8 @@ public class UIManager : MonoBehaviour {
 	}
 
 	//Updates the players gems count when they enter the shop
-	public void UI_UpDateGems(int gemCount){
-		playerGemCountText.text = gemCount.ToString() + (" GEMS");
+	public void UI_UpDateGems(Text UIEllement, int gemCount){
+		UIEllement.text = gemCount.ToString();
 
 	}
 

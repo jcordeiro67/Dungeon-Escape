@@ -27,6 +27,12 @@ public class Spider : Enemy, IDamageable{
 		//Stay Still
 	}
 
+	public void Attack(){
+
+		// Instantiate AcidEffect attack
+		Instantiate(m_acidEffectPrefab, m_spawnPoint.position, Quaternion.identity);
+	}
+
 	public void Damage(){
 		
 		if (isDead) {
@@ -49,14 +55,13 @@ public class Spider : Enemy, IDamageable{
 			if (diamond.GetComponent<Diamond>() != null) {
 				diamond.GetComponent<Diamond>().m_gems = m_gems;
 			}
-			//Destroy(this.gameObject);
+
+			StartCoroutine(EnemyDeathPause(3f));
 		}
 	}
 
-	public void Attack(){
-
-		// Instantiate AcidEffect attack
-		Instantiate(m_acidEffectPrefab, m_spawnPoint.position, Quaternion.identity);
+	IEnumerator EnemyDeathPause(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		Destroy(this.gameObject);
 	}
-
 }

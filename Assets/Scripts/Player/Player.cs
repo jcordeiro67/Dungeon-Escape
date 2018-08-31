@@ -50,7 +50,7 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		m_playerAnim = GetComponent<PlayerAnimation>();
 		m_playerSprite = GetComponentInChildren<SpriteRenderer>();
 		m_swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
-
+		UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, Diamonds);
 	}
 	
 	// Update is called once per frame
@@ -166,5 +166,6 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 
 		Diamonds += value;
 		//Debug.Log("Player Diamonds = " + Diamonds.ToString());
+		UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, Diamonds);
 	}
 }
