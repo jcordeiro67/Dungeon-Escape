@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Reflection;
+
 
 public class UIManager : MonoBehaviour {
 	//Singleton Class UIManager
@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject errorCanvas;
 	public Text	errorText;
 	public Text hudGemCountText;
+	public Image[] healthBars;
 
 	void Awake(){
 		_instance = this;
@@ -67,5 +68,12 @@ public class UIManager : MonoBehaviour {
 		errorCanvas.SetActive(!errorCanvas.activeSelf);
 	}
 
-
+	public void UpDatePlayerHealth(int livesRemaining){
+		//loop through livesRemaining
+		for (int i = 0; i <= livesRemaining; i++) {
+			if (i == livesRemaining) {
+				healthBars[i].enabled = false;
+			} 
+		}
+	}
 }

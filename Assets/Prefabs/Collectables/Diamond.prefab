@@ -215,9 +215,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gems: 1
-  m_spawnSound: {fileID: 8300000, guid: 24caa0955c8494d1fb8d9b69d3b9b312, type: 3}
-  m_colletSound: {fileID: 8300000, guid: 92b213b316dcc42df94727a58cffaffd, type: 3}
+  m_spawnSound: {fileID: 8300000, guid: a92fd2bbcabee4b35b73b84986bf9d25, type: 3}
+  m_colletSound: {fileID: 8300000, guid: ab7526c990d33493ca9335cb9991f315, type: 3}
   m_volume: 1
+  collectDelay: 0.15
 --- !u!212 &212339618413093866
 SpriteRenderer:
   m_ObjectHideFlags: 1

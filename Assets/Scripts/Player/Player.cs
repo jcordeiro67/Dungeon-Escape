@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -11,8 +12,9 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 	[SerializeField]
 	private int m_diamonds = 0;
 
+	[Range(1,4)]
 	[SerializeField]
-	private int m_health = 10;
+	private int m_health = 4;
 	// variable for move speed
 	[SerializeField]
 	private float m_speed = 5f;
@@ -25,20 +27,20 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 
 	// get handle for rigidbody
 	private Rigidbody2D m_rBody2D;
-	private Animator m_anim;
 	private PlayerAnimation m_playerAnim;
 	private SpriteRenderer m_playerSprite;
 	private SpriteRenderer m_swordArcSprite;
 
 	private bool m_resetJump = false;
 	private bool m_isGrounded = false;
+	private bool m_isDead = false;
 
 	public int Health { get; set;}
 	public int Diamonds { get; set;}
 	public bool canAttack = true;
 
 	// Use this for initialization
-	void Start () {
+	void Start(){
 
 		Health = m_health;
 		Diamonds = m_diamonds;
@@ -46,23 +48,24 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		Debug.Log("Player Diamonds = " + Diamonds.ToString());
 		// assign handle of rigidbody
 		m_rBody2D = GetComponent<Rigidbody2D>();
-		m_anim = GetComponentInChildren<Animator>();
 		m_playerAnim = GetComponent<PlayerAnimation>();
 		m_playerSprite = GetComponentInChildren<SpriteRenderer>();
 		m_swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, Diamonds);
+		UIManager.Instance.UpDatePlayerHealth(Health);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update(){
 		
 		Move();
 		Attack();
 	}
 
-	void Move() {
+	void Move(){
+		
 		// horizontal input for left/right
-		float move = Input.GetAxisRaw("Horizontal");
+		float move = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 		// check if player is grounded
 		//TODO: move to update function so IsGrounded is only called once per frame 
 		m_isGrounded = IsGrounded();
@@ -74,10 +77,9 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 			if (move < 0) {
 			FlipSprite(false);
 		}
-		
 
 		// Jump
-		if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
+		if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Jump")) && IsGrounded()) {
 			
 			m_rBody2D.velocity = new Vector2(m_rBody2D.velocity.x, m_jumpForce);
 			m_playerAnim.Jump(true);
@@ -89,19 +91,17 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 
 	}
 
-	void Attack()
-	{
+	void Attack(){
 		if (!canAttack) {
 			return;
 		}
 
-		if (Input.GetMouseButtonDown(0) && IsGrounded()) {
+		if (CrossPlatformInputManager.GetButtonDown("Attack") && IsGrounded()) {
 			m_playerAnim.Attack();
 		}
 	}
 
-	void FlipSprite(bool faceRight)
-	{
+	void FlipSprite(bool faceRight){
 		if (m_playerSprite != null) {
 			// facing right
 			if (faceRight == true) {
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 	}
 
 	bool IsGrounded(){
-		
+
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 1f, m_groundLayer);
 		Debug.DrawRay(transform.position, Vector2.down, Color.green);
 		if (hitInfo.collider != null) {
@@ -148,16 +148,25 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		m_resetJump = false;
 	}
 
-	public void Damage()
-	{
-		Debug.Log("Player Hit: Damage() called");
-
+	public void Damage(){
+		if (m_isDead) {
+			return;
+		}
+		//Deduct 1 from health
 		Health--;
-		//TODO: Add hit Animation
+		//Update UI Health
+		UIManager.Instance.UpDatePlayerHealth(Health);
+		//Play Hit Animation
+		//m_playerAnim.Hit();
+		//TODO: Play hit sound
 		Debug.Log("Player Health = " + Health.ToString());
-
+		//Check for dead
 		if(Health < 1){
-			m_anim.SetTrigger("Death");
+			m_isDead = true;
+			//Play death animation
+			m_playerAnim.Death();
+			//TODO: Play death sound
+			//TODO: Respawn player
 		}
 
 	}
@@ -165,7 +174,7 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 	public void AddDiamonds(int value){
 
 		Diamonds += value;
-		//Debug.Log("Player Diamonds = " + Diamonds.ToString());
 		UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, Diamonds);
 	}
+
 }

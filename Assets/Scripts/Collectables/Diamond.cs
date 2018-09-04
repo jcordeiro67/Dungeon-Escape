@@ -11,7 +11,7 @@ public class Diamond : MonoBehaviour{
 	//AudioClips for Swawn and Collect
 	public AudioClip m_spawnSound, m_colletSound;
 	public float m_volume = 1f;
-	//public bool respawn = false;
+	public float collectDelay = 0.15f;
 	//Handle for the player script
 	private Player m_player;
 	//Handle for the AudioSource
@@ -48,8 +48,8 @@ public class Diamond : MonoBehaviour{
 				m_audioSource.PlayOneShot(m_colletSound, m_volume);
 			}
 
-			//Destroy Diamond
-			Destroy(this.gameObject);
+			StartCoroutine(DiamondDestroyPause(collectDelay));
+
 		}
 	}
 
@@ -59,5 +59,10 @@ public class Diamond : MonoBehaviour{
 			// play sound
 			m_audioSource.PlayOneShot(m_spawnSound, m_volume);
 		}
+	}
+
+	IEnumerator DiamondDestroyPause(float waitTime){
+		yield return new WaitForSeconds(waitTime);
+		Destroy(this.gameObject);
 	}
 }

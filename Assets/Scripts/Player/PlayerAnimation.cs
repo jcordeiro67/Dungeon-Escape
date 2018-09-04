@@ -28,7 +28,25 @@ public class PlayerAnimation : MonoBehaviour {
 
 	public void Attack(){
 
-		m_animator.SetTrigger("Attack");
-		m_swordAnim.SetTrigger("SwordAnimation");
+		if (m_animator != null) {
+			m_animator.SetTrigger("Attack");
+		}
+		if (m_swordAnim != null) {
+			m_swordAnim.SetTrigger("SwordAnimation");
+		}
+	}
+
+	public void Hit(){
+		
+		if (m_animator != null) {
+			m_animator.SetTrigger("Hit");
+		}
+	}
+
+	public void Death(){
+
+		if (m_animator != null) {
+			m_animator.SetTrigger("Death");
+		}
 	}
 }
