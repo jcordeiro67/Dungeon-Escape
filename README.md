@@ -1,5 +1,6 @@
 # Dungeon-Escape
-Welcome to Dungeon Escape
+Welcome to Dungeon Escape.
+
 This is my project created from the Udemy course,
 The Ultimate Guide to 2D Mobile Game Development in Unity.
 
