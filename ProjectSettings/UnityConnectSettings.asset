@@ -14,21 +14,23 @@ UnityConnectSettings:
     m_Enabled: 0
     m_CaptureEditorExceptions: 1
   UnityPurchasingSettings:
-    m_Enabled: 0
+    m_Enabled: 1
     m_TestMode: 0
   UnityAnalyticsSettings:
-    m_Enabled: 0
+    m_Enabled: 1
     m_InitializeOnStartup: 1
     m_TestMode: 0
     m_TestEventUrl: 
     m_TestConfigUrl: 
   UnityAdsSettings:
-    m_Enabled: 0
+    m_Enabled: 1
     m_InitializeOnStartup: 1
-    m_TestMode: 0
+    m_TestMode: 1
     m_IosGameId: 
     m_AndroidGameId: 
-    m_GameIds: {}
-    m_GameId: 
+    m_GameIds:
+      AndroidPlayer: 2778399
+      iPhonePlayer: 2778398
+    m_GameId: 2778398
   PerformanceReportingSettings:
     m_Enabled: 0

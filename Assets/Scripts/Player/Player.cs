@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		m_playerSprite = GetComponentInChildren<SpriteRenderer>();
 		m_swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		UIManager.Instance.UI_UpDateGems(UIManager.Instance.hudGemCountText, Diamonds);
-		UIManager.Instance.UpDatePlayerHealth(Health);
+
 	}
 	
 	// Update is called once per frame
@@ -65,7 +66,13 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 	void Move(){
 		
 		// horizontal input for left/right
+		#if MOBILE_INPUT
 		float move = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+		#endif
+		#if !MOBILE_INPUT
+		float move = Input.GetAxisRaw("Horizontal");
+		#endif
+
 		// check if player is grounded
 		//TODO: move to update function so IsGrounded is only called once per frame 
 		m_isGrounded = IsGrounded();
@@ -79,13 +86,23 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		}
 
 		// Jump
-		if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Jump")) && IsGrounded()) {
+		#if MOBILE_INPUT
+		if (CrossPlatformInputManager.GetButtonDown("Jump") && IsGrounded()) {
 			
 			m_rBody2D.velocity = new Vector2(m_rBody2D.velocity.x, m_jumpForce);
 			m_playerAnim.Jump(true);
 			StartCoroutine(ResetJumpRoutine());
 		}
+		#endif
 
+		#if !MOBILE_INPUT
+		if (Input.GetKeyDown("space") && IsGrounded()) {
+
+			m_rBody2D.velocity = new Vector2(m_rBody2D.velocity.x, m_jumpForce);
+			m_playerAnim.Jump(true);
+			StartCoroutine(ResetJumpRoutine());
+		}
+		#endif
 		m_rBody2D.velocity = new Vector2(move * m_speed, m_rBody2D.velocity.y);
 		m_playerAnim.Move(move);
 
@@ -95,10 +112,18 @@ public class Player : MonoBehaviour, IDamageable, ICollectable{
 		if (!canAttack) {
 			return;
 		}
-
+		#if MOBILE_INPUT
 		if (CrossPlatformInputManager.GetButtonDown("Attack") && IsGrounded()) {
 			m_playerAnim.Attack();
 		}
+		#endif
+
+		#if !MOBILE_INPUT
+		if(Input.GetMouseButtonDown(0) && IsGrounded()){
+			m_playerAnim.Attack();
+		}
+
+		#endif
 	}
 
 	void FlipSprite(bool faceRight){

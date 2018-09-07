@@ -85,14 +85,20 @@ public class ShopKeeper : MonoBehaviour {
 				
 				case 0: //Flame Sword
 					GameManager.Instance.FlameSword = true;
+					UIManager.Instance.EnableInventoryIcon(currentSellection);
+					//Increase Damage amount
 					break;
 
 				case 1: //Boots Of Flight
 					GameManager.Instance.BootsOfFlight = true;
+					UIManager.Instance.EnableInventoryIcon(currentSellection);
+					//Increase Jump Ability
 					break;
 
 				case 2: //Key To Castle
 					GameManager.Instance.KeyToCastle = true;
+					UIManager.Instance.EnableInventoryIcon(currentSellection);
+					//Allow Win Condition
 					break;
 			}
 

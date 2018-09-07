@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1534355040694618
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,12 +42,12 @@ GameObject:
   - component: {fileID: 114263868086368968}
   - component: {fileID: 114248965560623720}
   m_Layer: 5
-  m_Name: AttackButton
+  m_Name: B_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1923329776646596
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,12 +61,12 @@ GameObject:
   - component: {fileID: 114610776544989952}
   - component: {fileID: 114039891852599452}
   m_Layer: 5
-  m_Name: JumpButton
+  m_Name: A_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1969949299712042
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Jump
+  Name: Attack
 --- !u!114 &114183685138244152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf3be603548374ca46f521a3aa7fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Attack
+  Name: Jump
 --- !u!114 &114263868086368968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c3c865782347f41b6358d9fba14b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementRange: 50
+  MovementRange: 10
   axesToUse: 1
   horizontalAxisName: Horizontal
   verticalAxisName: Vertical
@@ -450,7 +450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.78, y: 0.01}
   m_AnchorMax: {x: 0.78, y: 0.01}
-  m_AnchoredPosition: {x: -55.8, y: 65.2}
+  m_AnchoredPosition: {x: -60, y: 65}
   m_SizeDelta: {x: 105, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224348238020121128
@@ -489,7 +489,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.78, y: 0.01}
   m_AnchorMax: {x: 0.78, y: 0.01}
-  m_AnchoredPosition: {x: 67.3, y: 106.8}
+  m_AnchoredPosition: {x: 68, y: 130}
   m_SizeDelta: {x: 105, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224899678604133674
@@ -507,6 +507,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16000001, y: 0.2}
   m_AnchorMax: {x: 0.16000001, y: 0.2}
-  m_AnchoredPosition: {x: 45, y: 2.1399994}
+  m_AnchoredPosition: {x: 45, y: 2.1400146}
   m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}

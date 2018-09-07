@@ -25,10 +25,13 @@ public class UIManager : MonoBehaviour {
 	public Text	errorText;
 	public Text hudGemCountText;
 	public Image[] healthBars;
+	public Image[] abilityIcons;
+
+	private ShopKeeper shopkeeper;
 
 	void Awake(){
 		_instance = this;
-
+		shopkeeper = FindObjectOfType<ShopKeeper>().GetComponent<ShopKeeper>();
 	}
 
 	void OnEnable(){
@@ -76,4 +79,22 @@ public class UIManager : MonoBehaviour {
 			} 
 		}
 	}
+
+	//ToggleInventoryIcon takes in the Inventory icon index to toggle on when the player 
+	//purchases an item from the shopkeeper.
+	public void EnableInventoryIcon(int index){
+		//switch on the icon passed in
+		abilityIcons[index].CrossFadeAlpha(255f, 0f, true);
+	}
+
+	public void DisableInventoryIcon(int index){
+		//switch on the icon passed in
+		abilityIcons[index].CrossFadeAlpha(100f, 0f, true);
+	}
+
+	public void UI_ActivateShopkeeperUI(bool state){
+		shopkeeper.m_UICanvas.SetActive(state);
+	}
+
+
 }
